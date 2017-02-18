@@ -67,7 +67,7 @@ set omnifunc=syntaxcomplete#Complete
 "Set colours and fonts
 if has("gui_running")
     set background=dark
-    color solarized
+    color gruvbox
     if has("gui_macvim")
         set guifont=Inconsolata:h17
     elseif has("gui_gtk2")
@@ -77,7 +77,7 @@ if has("gui_running")
     endif
 else
     set background=dark
-    silent! color peaksea
+    silent! color gruvbox
 endif
 
 set pastetoggle=<F12>                " pastetoggle (sane indentation on pastes)
