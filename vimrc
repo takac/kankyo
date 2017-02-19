@@ -51,6 +51,7 @@ NeoBundle 'tpope/vim-rsi'                        " Readline mappings for insert 
 NeoBundle 'tpope/vim-surround'                   " mappings for wrapping objects
 NeoBundle 'vim-scripts/scratch.vim'              " Easy tmp buffer
 NeoBundle 'wellle/targets.vim'                   " jump to more objects
+NeoBundle 'fatih/vim-go'
 
 call neobundle#end()
 
@@ -99,6 +100,16 @@ match ExtraWhitespace /\s\+\%#\@<!$/
 " =========================================================================== "
 "                                 Plugin Config                               "
 " =========================================================================== "
+
+" Go
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_types = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+let g:go_fmt_command = "goimports"
+let g:go_bin_path = expand("~/.gotools")
 
 let g:indentLine_enabled = 0
 let g:commandcaps_override = 1

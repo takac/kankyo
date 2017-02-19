@@ -19,11 +19,7 @@ function source_if_exists()
 # Smart case completion
 zstyle ':completion:*'  matcher-list 'm:{a-z}={A-Z}'
 
-source_if_exists ~/.bash_aliases
 source_if_exists ~/.dots/till.sh
-source_if_exists ~/.z-dir/z.sh
-# source_if_exists ~/.fzf.zsh
-source_if_exists ~/.dots/ff.bash
 source_if_exists ~/.dots/fancy-ctrl-z.zsh
 source_if_exists ~/.zsh_functions
 source_if_exists ~/proxyconf.sh
@@ -39,4 +35,8 @@ BLUE=$ESC_SEQ"34;01m"
 MAGENTA=$ESC_SEQ"35;01m"
 CYAN=$ESC_SEQ"36;01m"
 
-export PATH=$PATH:/root/.powerline/scripts
+# Aliases
+alias gs='git status'
+alias gco='git checkout'
+
+export PATH=$PATH:/usr/local/go/bin/
