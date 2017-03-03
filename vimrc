@@ -41,8 +41,6 @@ NeoBundle 'rking/ag.vim'                         " search with ag in vim
 NeoBundle 'sjl/gundo.vim'                        " visual undo tree
 NeoBundle 'chrisbra/sudoedit.vim'                " do sudo write and read in vim
 NeoBundle 'takac/vim-commandcaps'                " correct mistyped commands like :Wq
-NeoBundle 'takac/vim-fontmanager'                " manage fonts easily
-NeoBundle 'takac/vim-hardtime'                   " deter using repeative keys
 NeoBundle 'thinca/vim-quickrun'                  " Quickly run scripts in vim
 NeoBundle 'tpope/vim-commentary'                 " Add operator for adding comments
 NeoBundle 'tpope/vim-fugitive'                   " Git integration
@@ -175,14 +173,6 @@ set tags+=.git/ctags
 "                                 Remappings                                  "
 " =========================================================================== "
 
-" select pasted text
-noremap gV `[v`]
-
-" Make a simple "search" text object.
-vnoremap <silent> x //e<C-r>=&selection=='exclusive'?'+1':''<CR><CR>
-    \:<C-u>call histdel('search',-1)<Bar>let @/=histget('search',-1)<CR>gv
-omap x :normal vs<CR>
-
 cnoremap <C-LEFT> <S-LEFT>
 
 nnoremap Q <nop>
@@ -196,7 +186,7 @@ nnoremap <silent> <leader><CR> :set hlsearch!<CR>
 nnoremap <silent> <F7> :set spell!<CR>
 nnoremap <silent> <F8> :TagbarToggle<CR>
 
-" Use current selection for Acking all files in cwd
+" Use current selection for Aging all files in cwd
 vnoremap <silent> <leader>a :<C-U>let @/=GetVisual()<CR> :set hls<CR>:Ag "<C-R>/"<CR>
 nnoremap <silent> <leader>a :let @/='<C-R>=expand("<cword>")<CR>'<CR>:Ag <cword><CR>:set hls<CR>
 
@@ -246,7 +236,6 @@ nnoremap <leader>i /^\(<<<<<<<\\|=======$\\|>>>>>>>\)<CR>
 "                                   Autocmds                                  "
 " =========================================================================== "
 
-
 autocmd FileType yaml IndentLinesEnable
 autocmd FileType yaml set shiftwidth=2 tabstop=2
 
@@ -277,11 +266,11 @@ augroup END
 "                                   Commands                                  "
 " =========================================================================== "
 
-
 " Synonym for Remove.. I can't always remember which one!
 command! -nargs=0 -range DeleteTrailingWhiteSpace <line1>,<line2>call RemoveTrailingWhiteSpace()
 command! -nargs=0 -range RemoveTrailingWhiteSpace <line1>,<line2>call RemoveTrailingWhiteSpace()
 
+" Show syntax highlighting for word under cursor
 command! -nargs=0 SyntaxHighlighting call SynStack()
 
 
@@ -351,15 +340,15 @@ function! TryCommand(command_name)
 endfunction
 
 function! GetVisual() range
-        let reg_save = getreg('"')
-        let regtype_save = getregtype('"')
-        let cb_save = &clipboard
-        set clipboard&
-        normal! ""gvy
-        let selection = getreg('"')
-        call setreg('"', reg_save, regtype_save)
-        let &clipboard = cb_save
-        return selection
+    let reg_save = getreg('"')
+    let regtype_save = getregtype('"')
+    let cb_save = &clipboard
+    set clipboard&
+    normal! ""gvy
+    let selection = getreg('"')
+    call setreg('"', reg_save, regtype_save)
+    let &clipboard = cb_save
+    return selection
 endfunction
 
 
@@ -417,15 +406,7 @@ set wildignore+=*/target/*
 
 " AHH I NO MORE BELLS
 set noerrorbells visualbell t_vb=
-if has('autocmd')
-  autocmd GUIEnter * set visualbell t_vb=
-endif
 
-if exists(":FontSize")
-    FontSize 15
-endif
-
-"
 " Basic colouring and encoding
 set t_Co=256
 set encoding=utf-8
