@@ -1,28 +1,8 @@
-
 # Add all highlighting to zsh syntax hightlights
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
 # Smart case completion
 zstyle ':completion:*'  matcher-list 'm:{a-z}={A-Z}'
 export PATH=$PATH:/home/tom/.powerline/scripts
-
-function source_if_exists()
-{
-    if [ -f "$@" ]; then
-        source "$@"
-    else
-        if [ ! -n VERBOSE ]; then
-            echo "could not find $@"
-        fi
-    fi
-}
-
-# Smart case completion
-zstyle ':completion:*'  matcher-list 'm:{a-z}={A-Z}'
-
-source_if_exists ~/.dots/till.sh
-source_if_exists ~/.dots/fancy-ctrl-z.zsh
-source_if_exists ~/.zsh_functions
-source_if_exists ~/proxyconf.sh
 
 ################################################
 # Colors
@@ -38,5 +18,41 @@ CYAN=$ESC_SEQ"36;01m"
 # Aliases
 alias gs='git status'
 alias gco='git checkout'
+
+function agv()
+{
+    if [[ $@ == "" ]]; then
+        last_ag=$(history | grep "^\s*[0-9]\+\s*ag" | tail -1 | sed 's/^\s*//' | cut -f3- -d" ")
+        results=$(eval "$last_ag")
+    else
+        results=$(ag $@)
+    fi
+    if [[ "${results}" != "" ]]; then
+        vim -c "setlocal buftype=nofile bufhidden=hide noswapfile" -c "let @/="'"'$@'"'" | set hls" - <<< "$results"
+    else
+        return -1
+    fi
+}
+
+DEFAULT_ROOT_FILES=(pom.xml .git)
+function t () {
+	while :; do
+		if [ $PWD = '/' ]; then
+			return
+		fi
+		if [ -z $1 ]; then
+			for DRF in "${DEFAULT_ROOT_FILES[@]}"; do
+				if [ -e $DRF ]; then
+					return
+				fi
+			done
+		else
+			if [ -e $1 ]; then
+				return
+			fi
+		fi
+		cd ../
+	done
+}
 
 export PATH=$PATH:/usr/local/go/bin/

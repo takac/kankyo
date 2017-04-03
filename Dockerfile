@@ -1,7 +1,16 @@
+# TODO goto 1.8
 FROM golang:1.7-alpine
 
-ENV HOME=/home/kankyo TERM=screen-256color BUILD_TOOLS="automake autoconf make g++"
-ENV OH_MY_ZSH=$HOME/.oh-my-zsh LC_ALL=en_GB.UTF-8 ZSHRC=$HOME/.zshrc
+ENV HOME=/home/kankyo
+ENV TERM=screen-256color
+ENV BUILD_TOOLS="automake autoconf make g++"
+ENV OH_MY_ZSH $HOME/.oh-my-zsh
+ENV LC_ALL en_GB.UTF-8
+ENV ZSHRC $HOME/.zshrc
+
+# TODO Can we mount the ~/.gitconfig?
+ENV GIT_NAME="Tom Cammann"
+ENV GIT_EMAIL="tom.cammann@hpe.com"
 
 WORKDIR $HOME
 
@@ -31,11 +40,11 @@ RUN vim "+silent NeoBundleInstall" +qa && \
 RUN cp $OH_MY_ZSH/templates/zshrc.zsh-template $ZSHRC && \
     cat >> $ZSHRC < extras.zsh && \
     rm extras.zsh && \
-    sed -i -e 's/^plugins=.*/plugins=(zsh-syntax-highlighting docker git screen history-substring-search)/' $ZSHRC && \
+    sed -i -e 's/^plugins=.*/plugins=(zsh-syntax-highlighting docker git tmux history-substring-search)/' $ZSHRC && \
     sed -i -e 's/^ZSH_THEME=.*/ZSH_THEME=darkblood/' $ZSHRC && \
     git config --global core.editor "vim" && \
-    git config --global user.name "Tom Cammann" && \
-    git config --global user.email "tom.cammann@hpe.com" && \
+    git config --global user.name "$GIT_NAME" && \
+    git config --global user.email "$GIT_EMAIL" && \
     git config --global color.ui true && \
     mkdir -p ~/.vim/backup && mkdir -p ~/.vim/undo && mkdir -p ~/.vim/tmp
 
