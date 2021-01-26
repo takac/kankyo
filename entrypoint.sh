@@ -3,7 +3,7 @@ set -eu
 
 UID=${1:-1000}
 USER=${2:-kankyo}
-GID=${3:-kankyo}
+GID=${3:-1000}
 GROUP=${4:-kankyo}
 DOCKER_GROUP=${5:-999}
 

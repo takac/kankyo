@@ -1,7 +1,9 @@
 #!/bin/bash
 
+# TODO get .gitconfig
+
 docker run -ti -v $(pwd):/home/kankyo/work \
     -v /var/run/docker.sock:/var/run/docker.sock \
-    -h kankyo takac/kankyo \
-    $(id -u) $(id -un) $(id -g) $(id -gn) \
-    $(getent group docker | awk -F ":" '{ print $3 }')
+    -h kankyo kankyo
+    # $(id -u) $(id -un) $(id -g) $(id -gn)
+    # $(getent group docker | awk -F ":" '{ print $3 }')

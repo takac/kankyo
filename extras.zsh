@@ -55,4 +55,5 @@ function t () {
 	done
 }
 
+alias vi="vim"
 export PATH=$PATH:/usr/local/go/bin/
