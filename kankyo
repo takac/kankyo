@@ -3,7 +3,8 @@
 # TODO get .gitconfig
 
 docker run -ti -v $(pwd):/home/kankyo/work \
+    --privileged \
     -v /var/run/docker.sock:/var/run/docker.sock \
-    -h kankyo kankyo
+    -h kankyo takac/kankyo:heavy
     # $(id -u) $(id -un) $(id -g) $(id -gn)
     # $(getent group docker | awk -F ":" '{ print $3 }')

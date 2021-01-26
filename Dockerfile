@@ -15,7 +15,11 @@ ENV GIT_EMAIL="tom.cammann@hpe.com"
 WORKDIR $HOME
 
 RUN apk --update --upgrade --no-cache add zsh git vim tmux \
-    the_silver_searcher ca-certificates openssl docker less sudo bash
+    the_silver_searcher ca-certificates openssl docker less sudo bash \
+    python3 python3-dev py3-pip gcc radare2 linux-headers \
+    make musl-dev libc-dev libffi-dev openssl-dev
+
+RUN pip3 install pwntools
 
 RUN git clone https://github.com/robbyrussell/oh-my-zsh $OH_MY_ZSH && \
     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $OH_MY_ZSH/custom/plugins/zsh-syntax-highlighting && \
