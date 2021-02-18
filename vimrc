@@ -399,7 +399,7 @@ set history=1000
 set ignorecase                      " Ignore case when searching
 set incsearch                       " Make search act like search in modern browsers
 set linebreak
-set listchars=tab:▸\ ,eol:¬,trail:●,extends:❯,precedes:❮
+" set listchars=tab:▸\ ,eol:¬,trail:●,extends:❯,precedes:❮
 set magic                           " Set magic on, for regular expressions
 set matchtime=2                     " How many tenths of a second to blink
 set wildignore+=*/target/*

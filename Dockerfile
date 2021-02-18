@@ -1,5 +1,5 @@
 # TODO goto 1.8
-FROM golang:1.15-alpine
+FROM kalilinux/kali
 
 ENV HOME=/home/kankyo
 ENV TERM=screen-256color
@@ -14,10 +14,11 @@ ENV GIT_EMAIL="tom.cammann@hpe.com"
 
 WORKDIR $HOME
 
-RUN apk --update --upgrade --no-cache add zsh git vim tmux \
-    the_silver_searcher ca-certificates openssl docker less sudo bash \
-    python3 python3-dev py3-pip gcc radare2 linux-headers \
-    make musl-dev libc-dev libffi-dev openssl-dev
+RUN apt update && \
+    apt install -y zsh git vim tmux \
+    silversearcher-ag ca-certificates openssl docker less sudo bash \
+    python3 python3-dev python3-pip gcc radare2 linux-headers-amd64 \
+    make musl-dev libc-dev libffi-dev kali-tools-headless
 
 RUN pip3 install pwntools
 
